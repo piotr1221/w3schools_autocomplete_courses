@@ -2,7 +2,7 @@
 Selenium script in Python to automatically complete lessons and excercises from W3Schools tutorials
 
 # How to use
-Execute script on console as
+Execute script on console as \n
 python script.py --email your-email --password your-password --course coursename --tutorial --exercise
 
 Currently accepted values for argument --course:
@@ -16,4 +16,4 @@ Currently accepted values for argument --course:
 - AngularJS
 - XML
 
-For --tutorial and --exercise are boolean arguments. Type the argument with no value for True or --no-tutorial or --no-exercise for False.
+--tutorial and --exercise are boolean arguments. Type the argument with no value for True or --no-tutorial and --no-exercise for False.
