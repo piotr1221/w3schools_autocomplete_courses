@@ -28,17 +28,21 @@ def select_course(driver, args, course_choices):
             course.click()
             break
     
+def complete_tutorial(driver, args):
+    driver.find_element(By.XPATH, f'//*[contains(text(), \"{os.getenv("tutorial_tab")}\")]').click()
+    
 def main(args, course_choices):
     load_dotenv()
     with Firefox(options=get_options()) as driver:
         driver.implicitly_wait(int(os.getenv('wait_time')))
-        driver.get("https://my-learning.w3schools.com/tutorials")
+        driver.get(os.getenv('w3school_url'))
 
         login(driver, args)
 
         select_course(driver, args, course_choices)
 
-        
+        if args.TUTORIAL:
+            complete_tutorial(driver, args)
 
         print('ra')
         time.sleep(10)
@@ -51,6 +55,10 @@ if __name__ == '__main__':
     course_choices=('HTML', 'CSS', 'JavaScript', 'Node.js', 'React', 'PHP', 'jQuery', 'AngularJS', 'XML')
     parser.add_argument('--course', action='store', dest='COURSE', required=True, choices=course_choices,
                         help='Course to scrap through')
+    parser.add_argument('--tutorial', action=argparse.BooleanOptionalAction, dest='TUTORIAL', required=True,
+                        help='Complete all tutorial')
+    parser.add_argument('--exercise', action=argparse.BooleanOptionalAction, dest='EXERCISE', required=True,
+                        help='Complete all exercises')
 
     args = parser.parse_args()
     main(args, course_choices)
