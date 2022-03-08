@@ -1,6 +1,9 @@
 # w3schools_autocomplete_courses
 Selenium script in Python to automatically complete lessons and excercises from W3Schools tutorials
 
+# Install the dependencies
+pip install -r requirements.txt
+
 # How to use
 Execute script on console as:\
 python script.py --email your-email --password your-password --course coursename --tutorial --exercise
