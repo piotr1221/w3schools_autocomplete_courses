@@ -104,7 +104,12 @@ def complete_exercises(driver, args, course_url):
 
 def main(args, course_choices):
     load_dotenv()
-    with Firefox(options=get_options()) as driver:
+    if not args.PATH: 
+        driver = Firefox(options=get_options()) 
+    else:
+        driver = Firefox(options=get_options(), executable_path=args.PATH);
+
+    with driver as driver:
         driver.implicitly_wait(int(os.getenv('wait_time')))
         driver.get(os.getenv('w3school_url'))
 
@@ -131,5 +136,6 @@ if __name__ == '__main__':
                         help='Complete all tutorial')
     parser.add_argument('--exercise', action=argparse.BooleanOptionalAction, dest='EXERCISE', required=True,
                         help='Complete all exercises')
+    parser.add_argument('--path', action='store', dest='PATH', required=False, help='Path to geckodriver')                    
     args = parser.parse_args()
     main(args, course_choices)
