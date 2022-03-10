@@ -15,16 +15,3 @@ def find_answers(template, correct, token='@'):
             i = 0
         i += 1
     return ans
-
-# assign = """
-# const d = @(10);
-# alert(d);
-# """
-
-# code = """
-# const d = new Date();
-# alert(d);
-# """
-
-# a = find_answers(assign, code)
-# print(a)

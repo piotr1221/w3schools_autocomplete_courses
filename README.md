@@ -1,7 +1,12 @@
 # w3schools_autocomplete_courses
 Selenium script in Python to automatically complete lessons and excercises from W3Schools tutorials
 
-# Install the dependencies (Python 3.8+ required)
+# Requirements
+## Python 3.8+ required
+Otherwise, argparse library won't work. Compatibility for older versions in the making.
+## Firefox (geckodriver)
+Currently the script only works with Firefox through geckodriver. Chrome compatibility incoming.
+## Install the dependencies
 pip install -r requirements.txt
 
 # How to use

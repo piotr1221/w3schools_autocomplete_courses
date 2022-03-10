@@ -19,7 +19,7 @@ def login(driver, args):
     driver.find_element(By.ID, os.getenv('login_password')).send_keys(args.PASSWORD)
     driver.find_element(By.XPATH, os.getenv('login_button')).click()
 
-def select_course(driver, args, course_choices):
+def select_course(driver, args):
     explore_all = driver.find_element(By.XPATH, os.getenv('explore_all'))
     driver.execute_script("arguments[0].click();", explore_all)
     courses = driver.find_elements(By.XPATH, f"{os.getenv('all_courses_list')}/*")
@@ -34,19 +34,12 @@ def complete_tutorial(driver, args, course_url):
     if not args.TUTORIAL:
         return
     driver.find_element(By.XPATH, f'//*[contains(text(), \"{os.getenv("tutorial_tab")}\")]').click()
-    # xpath = f'./a[contains(translate(., "{os.getenv("first_lesson").lower()}", \
-    #                                     "{os.getenv("first_lesson").upper()}"), \
-    #                                     "{os.getenv("first_lesson").upper()}")]'
-    # driver.find_element(By.ID, os.getenv('tutorial_nav')) \
-    #         .find_element(By.XPATH, xpath) \
-    #         .click()
 
     visited_links = set()
     while driver.find_elements(By.XPATH, f'//a[contains(text(), \"{os.getenv("next")}\")]'):
         if driver.current_url in visited_links \
             or driver.find_element(By.ID, os.getenv('main')) \
             .find_element(By.XPATH, './h1').text == f'W3Schools {args.COURSE} Certificate':
-            print('xdxdxd')
             break
         visited_links.add(driver.current_url)
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -65,24 +58,16 @@ def complete_exercises(driver, args, course_url):
         while driver.find_elements(By.ID, os.getenv('submit_ans')):
 
             inputs = driver.find_element(By.ID, os.getenv('empty_assignment')) \
-                                .find_elements(By.XPATH, "./input")
-
-            empty_ans = unescape(driver.find_element(By.ID, os.getenv('empty_assignment')) \
-                                        .text
-                            ).split()
+                                        .find_elements(By.XPATH, "./input")
 
             template_code = unescape(driver.find_element(By.XPATH,
                                             f'//*[contains(@id, \"{os.getenv("template_code")}\")]') \
-                                            .get_attribute('innerHTML')
+                                                        .get_attribute('innerHTML')
                                     )
-
             correct_code = unescape(driver.find_element(By.XPATH,
                                             f'//*[contains(@id, \"{os.getenv("correct_code")}\")]') \
-                                            .get_attribute('innerHTML')
+                                                        .get_attribute('innerHTML')
                                     )
-
-            exercise_url = driver.current_url
-            
             correct_answers = find_answers(template_code, correct_code)
 
             for input, ans in zip(inputs, correct_answers):
@@ -121,7 +106,7 @@ def main(args, course_choices):
 
         complete_exercises(driver, args, course_url)
 
-        print('ra')
+        print('Execution completed. Script will finish in 5 seconds.')
         time.sleep(5)
 
 if __name__ == '__main__':
