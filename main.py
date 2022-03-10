@@ -107,7 +107,7 @@ def main(args, course_choices):
     if not args.PATH: 
         driver = Firefox(options=get_options()) 
     else:
-        driver = Firefox(options=get_options(), executable_path=args.PATH);
+        driver = Firefox(options=get_options(), executable_path=args.PATH)
 
     with driver as driver:
         driver.implicitly_wait(int(os.getenv('wait_time')))
