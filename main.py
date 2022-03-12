@@ -23,7 +23,7 @@ def select_course(driver, args):
     explore_all = driver.find_element(By.XPATH, os.getenv('explore_all'))
     driver.execute_script("arguments[0].click();", explore_all)
     courses = driver.find_elements(By.XPATH, f"{os.getenv('all_courses_list')}/*")
-
+    
     for course in courses:
         element = course.find_element(By.XPATH, f'.{os.getenv("course_title")}')
         if args.COURSE in element.text:
