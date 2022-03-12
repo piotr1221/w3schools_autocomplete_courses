@@ -100,7 +100,7 @@ def main(args, course_choices):
 
         login(driver, args)
 
-        course_url = select_course(driver, args, course_choices)
+        course_url = select_course(driver, args)
 
         complete_tutorial(driver, args, course_url)
 
