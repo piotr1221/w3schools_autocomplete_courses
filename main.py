@@ -44,6 +44,8 @@ def complete_tutorial(driver, args, course_url):
         visited_links.add(driver.current_url)
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(1)
+        driver.execute_script("window.scrollTo(0, 0);")
+        time.sleep(1)
         driver.find_element(By.XPATH, f'//a[contains(text(), \"{os.getenv("next")}\")]').click()
     
     print(f'Tutorial for {args.COURSE} course completed')
@@ -113,8 +115,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Read data to complete the courses')
 
     parser.add_argument('--email', action='store', dest='EMAIL', required=True, help='E-mail for login')
-    parser.add_argument('--password', action='store', dest='PASSWORD', help='Password for login')
-    course_choices=('HTML', 'CSS', 'JavaScript', 'Node.js', 'React', 'PHP', 'jQuery', 'AngularJS', 'XML', 'MySQL', 'SQL')
+    parser.add_argument('--password', action='store', dest='PASSWORD', required=True, help='Password for login')
+    course_choices=('HTML', 'CSS', 'JavaScript', 'Node.js', 'React', 'PHP', 'jQuery', 'AngularJS', 'XML', 'MySQL', 'SQL', 'Bootstrap 5')
     parser.add_argument('--course', action='store', dest='COURSE', required=True, choices=course_choices,
                         help='Course to scrap through')
     parser.add_argument('--tutorial', action=argparse.BooleanOptionalAction, dest='TUTORIAL', required=True,
